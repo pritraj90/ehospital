@@ -1,0 +1,73 @@
+#install postgres on hodoop 
+step-1) sudo yum install postgresql-server  --for rhel/centos
+step2) sudo yum -y install pgadmin3
+step3)sudo yum -y install postgresql-jdbc*
+step 4)sudo cp /usr/share/pgsql/postgresql-*.jdbc3.jar /usr/share/java/postgresql-jdbc.jar
+step 5) chmod 644 /usr/share/java/postgresql-jdbc.jar
+step 6)sudo ln -s /usr/share/java/postgresql-jdbc.jar /var/lib/sqoop/postgesql-jdbc.jar
+step 7)sudo service postgresql initdb
+step 8)sudo service postgresql start
+step 9)sudo -u postgres psql postgres
+step 10)show hba_file;
+step 11)exit from postgres terminal and opem pg_hba file and type this---host all all 127.0.0.1/32 md5
+step 12)sudo service postgresql restart
+step 13)CREATE ROLE sqoop LOGIN ENCRYPTED PASSWORD 'sqoop' NOSUPERUSER INHERIT NOCREATEROLE;
+step 14)CREATE DATABASE "sqoop" WITH OWNER = sqoop ENCODING = 'UTF8' TABLESPACE = pg_default LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8' CONNECTION LIMIT = -1;
+step 15)type +\l and see sqoop database will show in the list of data base
+step 16) exit from postgres
+step 17) check connection from sqoop to postgres by typing this--
+sqoop list-databases   --connect "jdbc:postgresql://192.168.57.11:5432"   --username postgres --password abc --verbose
+
+
+remotely connect postgres db via command--
+psql -U postgres -h 192.168.57.11
+
+psql -U cloudera-scm -p 7432 -h localhost -d postgres---here -U=user,-p=port,-h=hostname,-d=database name
+
+backup db via command postgres--
+
+pg_dump -h localhost -U username -W -F t database_name > database_dump_file.tar
+-u=user,-w=password,-F=forceful,-t=tar format outpot
+
+pg_restore -h localhost -U username -W -F t -d new_database_name database_dump_file.tar
+
+org.postgresql.Driver
+
+---command for showing property of the table using hive
+describe formatted "table_name";
+
+sqoop eval   --connect "jdbc:postgresql://192.168.57.11:5432/aiims"   --username postgres   --password abc --query "select * from mas_country limit 5" --verbose --driver org.postgresql.Driver
+
+sqoop eval   --connect "jdbc:postgresql://192.168.57.11:5432/aiims"   --username postgres   --password abc --query "select count(1) from mas_country"
+
+sqoop import   --connect "jdbc:postgresql://192.168.57.11:5432/aiims"   --username postgres   --password abc --table mas_country --target-dir=/user/cloudera/sqoop_import/mas_country
+
+sqoop import   --connect "jdbc:postgresql://192.168.57.11:5432/aiims"   --username postgres   --password abc --table mas_country --target-dir=/user/cloudera/sqoop_import/mas_country
+
+sqoop import   --connect "jdbc:postgresql://192.168.57.11:5432/aiims"   --username postgres   --password abc --table mas_head --target-dir=/user/cloudera/sqoop_import/mas_head -- --schema billing
+
+CREATE EXTERNAL TABLE mas_head ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION 'hdfs:///user/cloudera/sqoop_import/billing.mas_head' TBLPROPERTIES ('avro.schema.url'='hdfs://quickstart.cloudera/user/cloudera/sqoop_import/mas_head.avsc');
+
+sqoop import-all-tables   --num-mappers 1   --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc   --hive-import   --hive-overwrite   --create-hive-table   --compress   --compression-codec org.apache.hadoop.io.compress.SnappyCodec --outdir java_files
+
+sqoop import-all-tables   -m 12   --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres --password=abc --warehouse-dir=/user/cloudera/sqoop_import
+
+sqoop import   --num-mappers 1   --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc --table casualty_registration  --hive-import   --hive-overwrite   --create-hive-table   --compress   --compression-codec org.apache.hadoop.io.compress.SnappyCodec --outdir java_files
+
+sqoop import-all-tables   -m 12   --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc  --compress   --compression-codec org.apache.hadoop.io.compress.SnappyCodec --warehouse-dir=/user/cloudera/sqoop_import1 --outdir java_files
+
+sqoop import-all-tables   -m 1   --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc  --compress   --compression-codec org.apache.hadoop.io.compress.SnappyCodec --warehouse-dir=/user/cloudera/sqoop_import1 --outdir java_files
+
+sqoop import-all-tables   -m 12   --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc  --warehouse-dir=/user/cloudera/sqoop_import2 --outdir java_files
+
+sqoop export  --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc --table sqoop_import_clinic  --export-dir=/user/cloudera/sqoop_import/mas_clinic --batch --outdir java_files
+
+sqoop export  --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc --table sqoop_import_clinic  --export-dir=/user/cloudera/sqoop_import/mas_clinic --batch --outdir java_files -m 1
+
+sqoop export  --connect "jdbc:postgresql://192.168.57.11:5432/newdb1"   --username=postgres   --password=abc --table patient_detail_sqoop  --export-dir=/user/cloudera/sqoop_import/patient_detail --batch --outdir java_files -m 1
+
+hadoop fs -ls /user/cloudera/sqoop_import2/mas_department
+
+
+
+
