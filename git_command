@@ -1,0 +1,6 @@
+1) git clone "git url"
+2)git status
+3)create new file that location
+4)git add "new file"
+5)git commit "*" i.e everything on file
+6)git push origin master
