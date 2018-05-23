@@ -1,0 +1,128 @@
+
+Short Description:
+sqoop import/export tutorial
+Article
+
+Sqoop
+
+# Sandbox 2.3.2
+
+# using postgres ambari database
+
+# edit pg_hba.conf file in /var/lib/pgsql/data
+
+# Add the following line as the first line of pg_hba.conf. It allows access to all databases for all users with an encrypted password:
+
+    ********************************
+    # TYPE DATABASE USER CIDR-ADDRESS METHOD
+    host all all 0.0.0.0/0 md5
+    ********************************
+
+### POSTGRES ###
+
+    su postgres
+    psql
+    \c ambari
+    #list all tables
+    \dt ambari.*
+    select * from ambari.hosts;
+
+### SQOOP ###
+
+#check sqoop version
+
+    sqoop version
+
+# get list of commands
+
+    sqoop help
+
+# more command specific
+
+    sqoop help import
+
+### DEMO ###
+
+# Download Postgres Driver
+
+    curl -L 'http://jdbc.postgresql.org/download/postgresql-9.2-1002.jdbc4.jar' -o postgresql-9.2-1002.jdbc4.jar
+
+# put in the sqoop library
+
+    sudo cp postgresql-9.2-1002.jdbc4.jar /usr/hdp/current/sqoop-client/lib/
+
+# list tables in ambari database / username ambari password bigdata
+
+    sqoop list-tables --connect jdbc:postgresql://127.0.0.1/ambari --username ambari -P
+
+# sqoop ambari hosts table into hdfs
+
+    su guestsqoop import --connect jdbc:postgresql://127.0.0.1/ambari --username ambari -P --table hosts --target-dir /user/guest/ambari_hosts_table
+
+# HDFS view the file
+
+    hdfs dfs -cat /user/guest/ambari_hosts_table/part-m-00000
+
+# sqoop ambari hosts table into hdfs using --direct
+
+    sqoop import --connect jdbc:postgresql://127.0.0.1/ambari --username ambari -password bigdata --table hosts --target-dir /user/guest/ambari_hosts_table_using_direct --direct
+
+# sqoop ambari hosts table into hive
+
+    sqoop import --connect jdbc:postgresql://127.0.0.1/ambari --username ambari -password bigdata --table hosts --hive-import --create-hive-table --direct
+
+# HIVE
+
+    select host_name, cpu_count from hosts;
+    select * from hosts;
+
+# SQOOP EXPORT
+
+# Create Hive table
+
+    drop table if exists export_table;
+    create table export_table (
+    key int,
+    value string
+    )
+    row format delimited
+    fields terminated by ",";
+
+# populate Hive with dummy data
+
+    insert into export_table values("1", "ExportedValue");
+
+# confirm Hive table has data
+
+    select * from export_table;
+
+# display the values in hive as hdfs files
+
+    hdfs dfs -cat /apps/hive/warehouse/export_table/000000_0
+
+# export table to MySQL
+
+# MySQL table must exist
+
+    su mysql
+    mysql -u root
+    create database export;
+    use export;
+    create table exported (rowkey int, value varchar(20));
+    exit;
+
+# on HDP 2.3.2 Sandbox, SQOOP-1400 bug, use --driver com.mysql.jdbc driver to overcome the problem
+
+# sqoop export from a Hive table into MySQL
+
+    sqoop export --connect jdbc:mysql://127.0.0.1/export --username hive --password hive --table exported --direct --export-dir /apps/hive/warehouse/export_table --driver com.mysql.jdbc.Driver
+
+# login to Mysql and check the table
+
+    su mysql
+    mysql -u root
+     
+    use export;
+    select * from exported;exit;
+
+
