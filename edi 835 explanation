@@ -1,0 +1,257 @@
+ISA(Interchange Control Header)*00(Authorization Information Qualifier)(R)*          *00(Security Information Qualifier)(R)*          *ZZ(Interchange ID Qualifier)(R)*ENH9999(Interchange Sender ID and length sould be 15)(R) *ZZ(R)*80887(Interchange Receiver ID and length sould be 15) *120430(Interchange Date and length is 6)*1144(Interchange Time and length sould be 4)*^(Repetition Separator)(R)*00501(Interchange Control Version Number)*200000031(Interchange Control Number)*0(Acknowledgement Requested)*P(Usage Indicator)*:(Component Element Separator)~
+
+ZZ	Mutually Defined
+14	Master Account Number
+28	Employee Identification Number
+
+GS(Functional Group Header)*HC(Functional Identifier Code)*ENH9999(Application Sender's Code)*80887(Application Receiver
+Code)*20120430(Date)*1144(time)*69(Group Control Number)*X(Responsible Agency Code)*005010X222A1(Version/Release/Industry ID code)~
+
+ST(Transaction Set Header)*835*1234(Control no)~
+
+BPR(Financial Information)*I(Remittance Information Only)(R)*1922.86(Claim paid amount)(R)*C(Credit or debit)(R)*CHK(check or transaction ACH)(R)***********(Account Number)*20110108(if online not transfer check date)~
+
+C	Payment Accompanies Remittance Advice	Not Provided
+D	Make Payment Only	Not Provided
+H	Notification Only	Not Provided
+I	Remittance Information Only	Not Provided
+P	Prenotification of Future Transfers	Not Provided
+U	Split Payment and Remittance	Not Provided
+X	Handling Party's Option to Split Payment and Remittance
+
+TRN(Reassociation Trace Number)*1(Trace Type Code)(R)*02790758(check no or electronic fund transfer(EFT))(R)*560894904(Number identifying the payer organization)(R)~
+
+1	Current Transaction Trace Numbers	Not Provided
+2	Referenced Transaction Trace Numbers	Not Provided
+3	Financial Reassociation Trace Number
+
+REF(Reference/version Identification)*F2(Receiver Id qualifier)(R)*LCLA438D(Receiver Identifier)(Number identifying the organization receiving the payment.)(R)~
+
+F2	Version Code - Local	Not Provided
+F4	Facility Certification Number	Not Provided
+F5	Medicare Version Code	Not Provided
+F6	Health Insurance Claim (HIC) Number	Not Provided
+F8	Original Reference Number
+etc..
+
+DTM(Production Date)*405(Date Time Qualifier)(R)*20110104(Production date)(R)~
+
+405	Production	Not Provided
+431	Onset of Current Symptoms or Illness	Not Provided
+434	Statement	Not Provided
+435	Admission	Not Provided
+439	Accident	Not Provided
+441	Prior Placement
+
+N1(Payer Identification)*PR(a physical location, property or an individual)(R)*BLUE CROSS AND BLUE SHIELD O()F NORTH CAROLINA(Payer Name)(R)~
+
+PE	Payee	Not Provided
+PR	Payer	Not Provided
+PRP	Primary Payer	Not Provided
+PT	Party to Receive Test Report	Not Provided
+PV	Party performing certification	Not Provided
+PW	Pickup Address	Not Provided
+QA	Pharmacy	Not Provided
+QB	Purchase Service Provider	Not Provided
+QC	Patient
+etc..
+
+
+N3(Payer Address)*P O BOX 2291(Payer Address Line)(R)~
+
+N4(Payer City, State, Zip)*DURHAM(City)(R)*NC(State)(R)*27702(Zip)(R)~
+
+PER(Payer Business Contact Information)*CX(Code identifying the major duty or responsibility of the person or group named.)(R)*TE(Payer Contact Name)(S)*8005554844(Contact no)(S)~
+
+BL	Technical Department	Not Provided
+CN	General Contact	Not Provided
+CX	Payers Claim Office	Not Provided
+EP	Employer Contact	Not Provided
+IC	Information Contact	Not Provided
+IP	Insured Party	Not Provided
+PQ	Parent or Guardian	Not Provided
+RP	Responsible Person	Not Provided
+SK	School Clerk
+
+N1(Payee Identification)*PE(a physical location, property or an individual)(R)*XYZ HEALTHCARE CORPORATION(Payee name)(R)*XX(Identification Code Qualifier)(R)*0987654321(Payer assigned submission identification number.)~
+
+WR	Wine Region Code	Not Provided
+XV	Health Care Financing Administration National PlanID Required if the National PlanID is mandated for use. Otherwise, one of the other listed codes may be used.	Required value if the Nation Payer ID is mandated for use. If not mandated, additional information would be in the REF segment.
+XX	Health Care Financing Administration National Provider Identifier Required value if the National Provider ID is mandated for use. Otherwise, one of the other listed codes may be used.	Required value if the National Provider ID is mandated for use. Otherwise, one of the other listed codes may be used.
+ZC	Contractor Establishment Code	Not Provided
+ZN	Zone	Not Provided
+
+
+N3(Payee Address)*P O BOX XYZ(Payee address)(R)~
+
+N4(Payee City,State,Zip)*CHARLOTTE(city)(R)*NC(State)(R)*28234(Zip)(R)~
+
+REF(Payee Additional Identification)*TJ(Reference Identification Qualifier)(R)*123456789(Additional Payee ID)(R)~
+
+TJ	Federal Taxpayer's Identification Number	Not Provided
+VV	Voucher	Not Provided
+VY	Link Sequence Number	Not Provided
+X4	Clinical Laboratory Improvement Amendment Number	Not Provided
+X9	Internal Control Number
+
+LX(Header Number)*1(Assigned no)(R)~
+
+FISS uses TTYYMM -
+Facility Code/year/Month. MCS uses 1 for
+
+CLP(Claim Level Data)*200200964A52(Patient Control no or Patient's unique alpha-numeric identification number for this claim assigned by the provider)(R)*1(Code specifying the status of a claim submitted by the provider to the payor)(R)*2100(Total Claim Charge
+Amount)(R)*1922.86(Claim Payment Amount)(R)*142.54(Patient Responsibility Amount)(S)*15(Claim Filling Indicator Code)(R)*94151100100(Payer Claim Control no or Must apply to the entire claim and be unique within the payer's system.)(S)~
+
+1	Processed as Primary	Not Provided
+2	Processed as Secondary	Not Provided
+3	Processed as Tertiary	Not Provided
+4	Denied	Not Provided
+19	Processed as Primary, Forwarded to Additional Payer(s)	Not Provided
+20	Processed as Secondary, Forwarded to Additional Payer(s)	Not Provided
+21	Processed as Tertiary, Forwarded to Additional Payer(s)	Not Provided
+22	Reversal of Previous Payment	Not Provided
+23	Not Our Claim, Forwarded to Additional Payer(s)	Not Provided
+25	Predetermination Pricing Only - No Payment
+
+13	Point of Service (POS)	Not Provided
+14	Exclusive Provider Organization (EPO)	Not Provided
+15	Indemnity Insurance	Not Provided
+16	Health Maintenance Organization (HMO) Medicare Risk	Not Provided
+17	Dental Maintenance Organization	Not Provided
+AM	Automobile Medical	Not Provided
+BL	Blue Cross/Blue Shield	Not Provided
+CH	Champus	Not Provided
+CI	Commercial Insurance Co.
+etc..
+
+NM1(Patient Name)*QC(Entity Identifier Code)(R)*1(Entity Type Qualifier)(R)*Dough(Patient Last Name)(S)*Mary(Patient First Name)(S)****MI(Patient Identifier)(S)* YPB123456789001(Patient Identifier)(S)~
+
+QC	Patient	Not Provided
+QD	Responsible Party	Not Provided
+QE	Policyholder	Not Provided
+QH	Physician	Not Provided
+QK	Managed Care	Not Provided
+QL	Chiropractor	Not Provided
+QN	Dentist	Not Provided
+QO	Doctor of Osteopathy	Not Provided
+QS	Podiatrist	Not Provided
+QV	Group Practice
+
+
+0	Other: Any type of entity not otherwise defined that performs health care services
+1	Person: Physician, clinician, orthodontist, and any individual that is licensed/certified to perform healthcare services
+2	Facility: Hospital, health center, long-term care, rehabilitation, and any building that is licensed to transact healthcare services
+3	Professional Group: Collection of licensed/certified healthcare professionals that are practicing healthcare services under the same entity name and Federal Tax Identification Number
+4	Retail Site: Brick-and-mortar licensed/certified place of transaction that is not solely a healthcare entity (ie, pharmacies, independent laboratories, vision services)
+5	E-Site: Internet-based order/logistic system of healthcare services, typically in the form of durable medical equipment, pharmacy, or vision services; address assigned should be the address of the company delivering services or order fulfillment
+6	Financial Parent: Financial governing body that does not perform healthcare services itself but directs and finances healthcare service entities, usually through a board of directors
+7	Transportation: Any form of transport that conveys a patient to/from a healthcare provider
+
+etc.. for more serch "Entity Identifier Code USHIK" in google
+
+MD	Manitoba Department of Mines and Resources	Not Provided
+MI	Member Identification Number
+HN	Health Insurance Claim (HIC) Number
+-------------------
+Optional below two segment---
+
+MIA(Inpatient Adjudication Information)*0(Covered Days or Visits Count)(R)~
+MOA(Outpatient Adjudication Information)*(Reimbursement Rate)(S)~
+---------------------------------------
+DTM(Coverage Expiration Date)*050(Date/Time Qualifier)(R)*20110103(Coverage Expiration Date)(R)~
+
+007	Effective	Not Provided
+009	Process	Not Provided
+011	Shipped	Not Provided
+035	Delivered	Not Provided
+036	Expiration	Not Provided
+050	Received	Not Provided
+090	Report Start	Not Provided
+091	Report End	Not Provided
+096	Discharge	Not Provided
+097	Transaction Creation	Not Provided
+102	Issue	Not Provided
+139	Estimated
+etc..
+
+SVC(Service Payment Information)*HC(Product or Service ID Qualifier)(R):59430(Adjudicated Procedure Code)(R)*1210(Line Item Charge
+Amount)(R)*1057.86(Line Item Provider Payment)(R)**1(Units of Service Paid Count)*HC(Product or Service ID Qualifier):59410(Procedure Code)(R)~
+
+HC	Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes	Not Provided
+HI	HIBC (Health Care Industry Bar Code) Supplier Labeling Standard Primary Data Message	Not Provided
+HP	Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code	Not Provided
+ID	International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure	Not Provided
+IV	Home Infusion EDI Coalition (HIEC) Product/Service Code	Not Provided
+N4	National Drug Code in 5-4-2 Format
+
+etc..
+
+DTM(Service Date)*472(Date Time Qualifier)(R)*20101231(Service Date)(R)~
+
+472	Service
+150	Service Period Start	Not Provided
+151	Service Period End
+
+CAS(Service Adjustment)*CO(Claim Adjustment Group Code)(R)*42(Adjustment Reason Code)(R)*34.6(Adjustment Amount)~
+
+CO	Contractual Obligations	
+CR	Correction and Reversals	Not Provided
+OA	Other adjustments	Not Provided
+PI	Payor Initiated Reductions	Not Provided
+PR	Patient Responsibility
+
+2	Coinsurance Amount
+3	Co-payment Amount
+4	The procedure code is inconsistent with the modifier used or a required modifier is missing.
+5	The procedure code/bill type is inconsistent with the place of service.
+6	The procedure/revenue code is inconsistent with the patient's age. Note: Changed as of 6/02
+7	The procedure/revenue code is inconsistent with the patient's gender. Note: Changed as of 6/2/2013
+8	The procedure code is inconsistent with the provider type/specialty (taxonomy). Note: Changed as of 6/02
+9	The diagnosis is inconsistent with the patient's age.
+40	Charges do not meet qualifications for emergent/urgent care.
+41	Discount agreed to in Preferred Provider contract. Note: Inactive for 003040
+42	Charges exceed our fee schedule or maximum allowable amount. Note: Changed as of 10/06. This code will be deactivated on 6/1/2007.
+43	Gramm-Rudman reduction. Note: Changed as of 6/06. This code will be deactivated on 7/1/2006.
+44	Prompt-pay discount.
+etc..
+
+CAS(Service Adjustment)*PR(Claim Adjustment Group Code)(R)*2(Adjustment Reason Code)(R)*117.54(Adjustment Amount)~
+
+REF(Line Item Control Number)*6R(Reference ID Qualifie)(R)*0001(Line Item Control Number)(R)~
+
+6O	Cross Reference Number	Not Provided
+6P	Group Number	Not Provided
+6R	Provider Control Number
+
+AMT(Claim Supplemental Amount)*B6(Amount Qualifier Code)(R)*1175.4(Service Supplemental Amount)~
+
+AU	Coverage Amount	Not Provided
+B6	Allowed - Actual	Not Provided
+B9	Co-insurance - Actual
+etc..
+
+SVC(Service Payment Information)*HC(Product or Service ID Qualifier)(R):59440(Adjudicated Procedure Code)(R)*890(Line Item Charge
+Amount)(R)*865(Line Item Provider Payment)(R)**1(Units of Service Paid Count)*HC(Product or Service ID Qualifier):59410(Adjudicated Procedure Code)(R)~
+
+DTM(Service Date)*472(Date Time Qualifier)(R)*20101231(Service Date)(R)~
+
+CAS(Service Adjustment)*PR(Claim Adjustment Group Code)(R)*3(Adjustment Reason Code)(R)*25(Adjustment Amount)~
+
+REF(Line Item Control Number)*6R(Reference ID Qualifie)(R)*0002(Line Item Control Number)(R)~
+
+AMT(Claim Supplemental Amount)*B6(Amount Qualifier Code)(R)*148(Service Supplemental Amount)~
+
+SVC(Service Payment Information)*HC(Product or Service ID Qualifier)(R):59426(Adjudicated Procedure Code)(R)*742(Line Item Charge
+Amount)(R)*742(Line Item Provider Payment)(R)**1(Units of Service Paid Count)(S)~
+
+DTM(Service Date)*472(Date Time Qualifier)(R)*20101231(Service Date)(R)~
+
+REF(Line Item Control Number)*6R(Reference ID Qualifie)(R)*0003(Line Item Control Number)(R)~
+
+AMT(Claim Supplemental Amount)*B6(Amount Qualifier Code)(R)*742(Service Supplemental Amount)~
+
+SE(Transaction Set Trailer)*33(Transition Segment Count)(R)*1234(Transition Set Control no)(R)~
+
+GE(Functional Group Trailer)*1(no Transaction Sets Included)*69(Group Control no)~
+
+IEA(Interchange Control Trailer)*1(no Included Functional Groups)*200000031(Interchange Control no)~
